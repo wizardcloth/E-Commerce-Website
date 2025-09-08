@@ -31,9 +31,9 @@ app.use("/api/cart", cartRoutes);
 
 app.get("/", (req, res) => res.send("Serverless Express API"));
 
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-export default async function handler(req, res) {
-  await connectDB();
-  app(req, res);
-}
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// export default async function handler(req, res) {
+//   await connectDB();
+//   app(req, res);
+// }
