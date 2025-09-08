@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://codecraft-fs-01-pai2.vercel.app",
+    origin: "https://e-commerce-three-tau-34.vercel.app",
     // origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
