@@ -2,7 +2,7 @@ import axios from "axios";
 
 //production
 const api = axios.create({
-  baseURL: "https://e-commerce-website-liard-eta.vercel.app/",
+  baseURL: "https://e-commerce-website-liard-eta.vercel.app/api",
 });
 
 //deployment
