@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Header from "@/components/header";
+import Header from "@/components/headerbar";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Products from "@/pages/Products";
