@@ -11,7 +11,7 @@ dotenv.config();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://e-commerce-website-xfbf.vercel.app/login",
+    origin: "https://e-commerce-three-tau-34.vercel.app/login",
     // origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
