@@ -12,26 +12,39 @@ router.get("/", protect, async (req, res) => {
 
 // Add item
 router.post("/add", protect, async (req, res) => {
-  const { productId, quantity } = req.body;
-  let cart = await Cart.findOne({ userId: req.user._id });
-  if (!cart) cart = new Cart({ userId: req.user._id, items: [] });
+  const { productId, quantity } = req.body
+  let cart = await Cart.findOne({ userId: req.user._id })
+  if (!cart) cart = new Cart({ userId: req.user._id, items: [] })
 
-  const item = cart.items.find((i) => i.product.toString() === productId);
-  if (item) item.quantity += quantity;
-  else cart.items.push({ product: productId, quantity });
+  const item = cart.items.find((i) =>
+    i.product.toString() === productId
+  )
 
-  await cart.save();
-  res.json(cart);
-});
+  if (item) {
+    item.quantity = quantity   
+  } else {
+    cart.items.push({ product: productId, quantity })
+  }
+
+  await cart.save()
+  cart = await cart.populate("items.product")
+  res.json(cart)
+})
+
 
 // Remove item
 router.delete("/:productId", protect, async (req, res) => {
-  let cart = await Cart.findOne({ userId: req.user._id });
-  if (!cart) return res.json({ items: [] });
+  let cart = await Cart.findOne({ userId: req.user._id }).populate("items.product")
+  if (!cart) return res.json({ items: [] })
 
-  cart.items = cart.items.filter((i) => i.product.toString() !== req.params.productId);
-  await cart.save();
-  res.json(cart);
-});
+  cart.items = cart.items.filter((i) => {
+    const prodId = i.product?._id ? i.product._id.toString() : i.product?.toString()
+    return prodId !== req.params.productId
+  })
+
+  await cart.save()
+  cart = await cart.populate("items.product") // repopulate after save
+  res.json(cart)
+})
 
 export default router;
